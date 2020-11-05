@@ -1,9 +1,12 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
+import { Context } from "../store/appContext";
 import { withRouter } from "react-router-dom";
 import PropTypes from "prop-types";
 import MikePhoto from "../../img/m101.jpg";
 
 export const ContactCard = props => {
+	const { contact } = props;
+	const { store, actions } = useContext(Context);
 	const [state, setState] = useState({
 		//initialize state here
 	});
@@ -23,18 +26,18 @@ export const ContactCard = props => {
 							<i className="fas fa-trash-alt" />
 						</button>
 					</div>
-					<label className="name lead">Mike Anamendolla</label>
+					<label className="name lead">{contact.full_name}</label>
 					<br />
 					<i className="fas fa-map-marker-alt text-muted mr-3" />
-					<span className="text-muted">5842 Hillcrest Rd</span>
+					<span className="text-muted">{contact.address}</span>
 					<br />
 					<span
 						className="fa fa-phone fa-fw text-muted mr-3"
 						data-toggle="tooltip"
 						title=""
-						data-original-title="(870) 288-4149"
+						//data-original-title="(870) 288-4149"
 					/>
-					<span className="text-muted small">(870) 288-4149</span>
+					<span className="text-muted small">{contact.phone}</span>
 					<br />
 					<span
 						className="fa fa-envelope fa-fw text-muted mr-3"
@@ -42,7 +45,7 @@ export const ContactCard = props => {
 						data-original-title=""
 						title=""
 					/>
-					<span className="text-muted small text-truncate">mike.ana@example.com</span>
+					<span className="text-muted small text-truncate">{contact.email}</span>
 				</div>
 			</div>
 		</li>
@@ -55,7 +58,8 @@ export const ContactCard = props => {
  **/
 ContactCard.propTypes = {
 	history: PropTypes.object,
-	onDelete: PropTypes.func
+	onDelete: PropTypes.func,
+	contact: PropTypes.object
 };
 
 /**
