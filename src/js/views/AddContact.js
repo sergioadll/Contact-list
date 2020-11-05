@@ -4,13 +4,11 @@ import PropTypes from "prop-types";
 import { Link } from "react-router-dom";
 
 export const AddContact = props => {
-	const { id } = props;
 	const { store, actions } = useContext(Context);
 	const [contact, setContact] = useState({ name: null, email: null, phone: null, address: null });
+	const id = props.location.state.id;
 	const contactInfo = () => {
-		console.log("out", contact);
 		if (contact.email != null && contact.name != null && contact.phone != null && contact.address != null) {
-			console.log("in", contact);
 			actions.addOrModifyContact(id, contact);
 		}
 	};
@@ -100,7 +98,7 @@ export const AddContact = props => {
 	);
 };
 AddContact.propTypes = {
-	id: PropTypes.string
+	location: PropTypes.object
 };
 
 AddContact.defaultProps = {

@@ -47,7 +47,21 @@ const getState = ({ getStore, getActions, setStore }) => {
 				try {
 					let res = await fetch(contactsUrl, requestOptions);
 					let result = await res.json();
-					let active = await setStore({});
+					console.log(result);
+				} catch (error) {
+					console.log("error", error);
+				}
+				getActions().loadContacts();
+			},
+			deleteContact: async id => {
+				const contactsUrl = baseUrl.concat(id);
+				var requestOptions = {
+					method: "DELETE",
+					redirect: "follow"
+				};
+				try {
+					let res = await fetch(contactsUrl, requestOptions);
+					let result = await res.json();
 					console.log(result);
 				} catch (error) {
 					console.log("error", error);

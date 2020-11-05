@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useContext } from "react";
 import { Context } from "../store/appContext";
 import { withRouter } from "react-router-dom";
+import { Link } from "react-router-dom";
 import PropTypes from "prop-types";
 import MikePhoto from "../../img/m101.jpg";
 
@@ -19,10 +20,15 @@ export const ContactCard = props => {
 				</div>
 				<div className="col-12 col-sm-6 col-md-9 text-center text-sm-left">
 					<div className=" float-right">
-						<button className="btn">
+						<Link to={{ pathname: "/edit", state: { id: contact.id } }} className="btn">
 							<i className="fas fa-pencil-alt mr-3" />
-						</button>
-						<button className="btn" onClick={() => props.onDelete()}>
+						</Link>
+						<button
+							className="btn"
+							onClick={() => {
+								props.onDelete();
+								actions.deleteContact();
+							}}>
 							<i className="fas fa-trash-alt" />
 						</button>
 					</div>
@@ -31,12 +37,7 @@ export const ContactCard = props => {
 					<i className="fas fa-map-marker-alt text-muted mr-3" />
 					<span className="text-muted">{contact.address}</span>
 					<br />
-					<span
-						className="fa fa-phone fa-fw text-muted mr-3"
-						data-toggle="tooltip"
-						title=""
-						//data-original-title="(870) 288-4149"
-					/>
+					<span className="fa fa-phone fa-fw text-muted mr-3" data-toggle="tooltip" title="" />
 					<span className="text-muted small">{contact.phone}</span>
 					<br />
 					<span
