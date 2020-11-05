@@ -1,5 +1,5 @@
 const baseUrl = "https://assets.breatheco.de/apis/fake/contact/";
-const getState = ({ getStore, setStore }) => {
+const getState = ({ getStore, getActions, setStore }) => {
 	return {
 		store: {
 			//Your data structures, A.K.A Entities
@@ -23,6 +23,36 @@ const getState = ({ getStore, setStore }) => {
 				} catch (error) {
 					console.log("error", error);
 				}
+			},
+			addOrModifyContact: async (id, info) => {
+				console.log(id);
+				let method = "";
+				id != "" ? (method = "PUT") : (method = "POST");
+
+				const contactsUrl = baseUrl.concat(id);
+				var requestOptions = {
+					method: method,
+					headers: {
+						"Content-Type": "application/json"
+					},
+					body: JSON.stringify({
+						full_name: info.name,
+						agenda_slug: "sergio",
+						email: info.email,
+						phone: info.phone,
+						address: info.address
+					}),
+					redirect: "follow"
+				};
+				try {
+					let res = await fetch(contactsUrl, requestOptions);
+					let result = await res.json();
+					let active = await setStore({});
+					console.log(result);
+				} catch (error) {
+					console.log("error", error);
+				}
+				getActions().loadContacts();
 			}
 		}
 	};
