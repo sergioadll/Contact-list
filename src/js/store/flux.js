@@ -25,10 +25,8 @@ const getState = ({ getStore, getActions, setStore }) => {
 				}
 			},
 			addOrModifyContact: async (id, info) => {
-				console.log(id);
 				let method = "";
 				id != "" ? (method = "PUT") : (method = "POST");
-
 				const contactsUrl = baseUrl.concat(id);
 				var requestOptions = {
 					method: method,
@@ -37,8 +35,8 @@ const getState = ({ getStore, getActions, setStore }) => {
 					},
 					body: JSON.stringify({
 						full_name: info.name,
-						agenda_slug: "sergio",
 						email: info.email,
+						agenda_slug: "sergio",
 						phone: info.phone,
 						address: info.address
 					}),

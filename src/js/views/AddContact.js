@@ -6,10 +6,15 @@ import { Link } from "react-router-dom";
 export const AddContact = props => {
 	const { store, actions } = useContext(Context);
 	const [contact, setContact] = useState({ name: null, email: null, phone: null, address: null });
-	const id = props.location.state.id;
+	let id = "";
+	if (props.location.state != undefined) {
+		id = props.location.state.id;
+	}
+
 	const contactInfo = () => {
 		if (contact.email != null && contact.name != null && contact.phone != null && contact.address != null) {
 			actions.addOrModifyContact(id, contact);
+			window.history.back();
 		}
 	};
 	return (
